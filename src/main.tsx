@@ -11,7 +11,7 @@ if (!rootElement) {
 
 ReactDOM.createRoot(rootElement).render(
   <Canvas shadows>
-    <Suspense fallback={null}>
+    <Suspense fallback={<>Engegant el motor...</>}>
       <App />
     </Suspense>
   </Canvas>
