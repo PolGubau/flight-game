@@ -87,21 +87,6 @@ function handleOrientation(event) {
   // Calculate the tilt angle
   const tiltAngle = Math.atan2(Math.sqrt(gamma * gamma + beta * beta), alpha);
 
-  // Calculate yaw (left/right) rotation based on gamma (Z-axis rotation)
-  // Adjust the factor for sensitivity
-  let yawFactor = 0.01; // Adjust this value for sensitivity
-  let yaw = gamma * yawFactor;
-
-  // If beta is positive, adjust the yaw direction
-  if (beta > 0) {
-    yaw *= -1;
-  }
-
-  // Calculate pitch (up/down) rotation based on beta (Y-axis rotation)
-  // Adjust the factor for sensitivity
-  let pitchFactor = 0.01; // Adjust this value for sensitivity
-  let pitch = beta * pitchFactor;
-
   // Adjust the controls based on the tilt angle
   if (tiltAngle > maxTiltAngle) {
     controls["a"] = true;
@@ -114,38 +99,15 @@ function handleOrientation(event) {
     controls["d"] = false;
   }
 
-  if (pitch > maxTiltAngle) {
+  if (beta > maxTiltAngle) {
     controls["w"] = true;
     controls["s"] = false;
-  } else if (pitch < -maxTiltAngle) {
+  } else if (beta < -maxTiltAngle) {
     controls["s"] = true;
     controls["w"] = false;
   } else {
     controls["w"] = false;
     controls["s"] = false;
-  }
-
-  // Apply rotation controls based on the calculated yaw and pitch
-  if (pitch > 10) {
-    controls["rotateDown"] = true;
-    controls["rotateUp"] = false;
-  } else if (pitch < -10) {
-    controls["rotateDown"] = false;
-    controls["rotateUp"] = true;
-  } else {
-    controls["rotateDown"] = false;
-    controls["rotateUp"] = false;
-  }
-
-  if (yaw > 10) {
-    controls["rotateRight"] = true;
-    controls["rotateLeft"] = false;
-  } else if (yaw < -10) {
-    controls["rotateRight"] = false;
-    controls["rotateLeft"] = true;
-  } else {
-    controls["rotateRight"] = false;
-    controls["rotateLeft"] = false;
   }
 }
 
